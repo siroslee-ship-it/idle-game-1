@@ -1,72 +1,86 @@
 // --- 核心數據狀態 ---
 let resource = 0;
 let clickPower = 1;
-// ... (保留所有變數)
+// ❗ 必須定義的變數 ❗
+let upgradeClickCost = 10; 
+let autoProducerCost = 50; 
+let productionRate = 0; // ❗ 確保這個變數有定義 ❗
 
 let autoSaveCounter = 0; // 新增：用於追蹤自動保存時間的計數器
 
-// 新增：手動保存按鈕的引用
-const manualSaveButton = document.getElementById('manualSaveButton');
+
+// --- DOM 元素引用 (確保這裡有所有元素的引用) ---
+const resourceCountEl = document.getElementById('resourceCount');
+const rpsCountEl = document.getElementById('rpsCount');
+const clickButton = document.getElementById('clickButton');
+
+// ... (省略的其他按鈕引用，如 upgradeClickButton, autoProducerButton) ...
+
+const manualSaveButton = document.getElementById('manualSaveButton'); // 手動保存按鈕
 
 
-// --- 數據持久化功能 ---
+// --- 核心功能函數 (必須包含) ---
 
 /**
- * 保存遊戲數據到 localStorage
- * @param {boolean} isManual - 是否為手動保存
+ * ❗ 必須定義的函數：更新所有顯示的數字 ❗
  */
-function saveGame(isManual = false) {
-    const gameData = {
-        resource: resource,
-        clickPower: clickPower,
-        productionRate: productionRate,
-        // ... (包含所有需要保存的數據)
-    };
-    localStorage.setItem('idleGameSave', JSON.stringify(gameData));
-    
-    if (isManual) {
-        // 給予用戶反饋，讓他們知道保存成功了
-        alert('✨ 遊戲進度已成功保存！');
+function updateDisplay() {
+    // 檢查元素是否存在以避免錯誤
+    if (resourceCountEl) resourceCountEl.textContent = Math.floor(resource);
+    if (rpsCountEl) rpsCountEl.textContent = productionRate;
+    // ... (更新其他商店元素的顯示)
+}
+
+/**
+ * ❗ 必須定義的函數：載入遊戲進度 ❗
+ */
+function loadGame() {
+    const savedData = localStorage.getItem('idleGameSave');
+    if (savedData) {
+        const gameData = JSON.parse(savedData);
+        
+        resource = gameData.resource || 0;
+        clickPower = gameData.clickPower || 1;
+        productionRate = gameData.productionRate || 0;
+        
+        // ... (載入其他數據)
+        
+        console.log('遊戲進度已載入！');
+        updateDisplay();
     }
-    console.log('遊戲已保存！');
 }
 
 
-// --- 新增：手動保存處理函數 ---
+// --- 數據持久化功能 (您提供的片段) ---
+
+function saveGame(isManual = false) {
+// ... (您的 saveGame 程式碼) ...
+}
 
 function handleManualSave() {
-    // 呼叫 saveGame 並傳入 true，表示這是手動保存
-    saveGame(true);
+// ... (您的 handleManualSave 程式碼) ...
 }
 
-// --- 遊戲主循環 (Game Loop) ---
+
+// --- 遊戲主循環 (您提供的片段) ---
 setInterval(() => {
-    // 1. 自動產出資源
-    if (productionRate > 0) {
-        resource += productionRate;
-    }
-    
-    // 2. 穩定的自動保存邏輯 (例如每 30 秒)
-    autoSaveCounter++;
-    if (autoSaveCounter >= 30) { 
-        saveGame();
-        autoSaveCounter = 0; // 計數器歸零
-    }
-    
-    // 3. 更新顯示
-    updateDisplay();
+// ... (您的 setInterval 程式碼) ...
+}, 1000);
 
-}, 1000); // 1 秒執行一次
 
-// --- 關鍵步驟：離開前保存 ---
-
-// 當使用者嘗試關閉分頁或重新整理時，這個事件就會觸發
+// --- 關鍵步驟：離開前保存 (您提供的片段) ---
 window.addEventListener('beforeunload', () => {
-    saveGame(); // 在瀏覽器卸載頁面前，強制保存一次！
+    saveGame();
 });
 
 
-// --- 啟動時載入 ---
+// --- 事件監聽器 (❗ 必須有，但您省略了 ❗) ---
+// 這裡必須有所有按鈕的監聽器，例如：
+// clickButton.addEventListener('click', clickResource); // 如果 clickResource 函數也存在
+// ❗ 確保這裡有以下監聽器 ❗
+manualSaveButton.addEventListener('click', handleManualSave); 
+
+
+// --- 啟動時載入 (您提供的片段) ---
 loadGame(); 
 updateDisplay();
-
