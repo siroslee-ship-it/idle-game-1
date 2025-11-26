@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的放置類遊戲 (Idle Game)</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>💎 放置資源製造機 💎</h1>
+    </header>
+
+    <div class="resource-panel">
+        <p>當前資源: <span id="resourceCount">0</span></p>
+        <p>每秒產出 (RPS): <span id="rpsCount">0</span></p>
+    </div>
+
+    <div class="interaction-area">
+        <button id="clickButton">點擊來挖掘資源 (+1)</button>
+    </div>
+
+    <div class="shop-area">
+        <h2>🛍️ 商店與升級</h2>
+        
+        <div class="upgrade-item" id="upgradeClickItem">
+            <h3>升級點擊力</h3>
+            <p>成本: <span id="upgradeClickCost">10</span> 資源</p>
+            <p>效果: 每次點擊 +1 資源</p>
+            <button id="upgradeClickButton">購買</button>
+        </div>
+
+        <div class="upgrade-item" id="autoProducerItem">
+            <h3>購買工人</h3>
+            <p>成本: <span id="autoProducerCost">50</span> 資源</p>
+            <p>效果: 每秒自動 +1 資源</p>
+            <button id="autoProducerButton">僱用</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
