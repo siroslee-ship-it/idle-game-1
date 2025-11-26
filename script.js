@@ -5,9 +5,17 @@ let clickPower = 1;
 
 let autoSaveCounter = 0; // 新增：用於追蹤自動保存時間的計數器
 
+// 新增：手動保存按鈕的引用
+const manualSaveButton = document.getElementById('manualSaveButton');
+
+
 // --- 數據持久化功能 ---
 
-function saveGame() {
+/**
+ * 保存遊戲數據到 localStorage
+ * @param {boolean} isManual - 是否為手動保存
+ */
+function saveGame(isManual = false) {
     const gameData = {
         resource: resource,
         clickPower: clickPower,
@@ -15,24 +23,21 @@ function saveGame() {
         // ... (包含所有需要保存的數據)
     };
     localStorage.setItem('idleGameSave', JSON.stringify(gameData));
+    
+    if (isManual) {
+        // 給予用戶反饋，讓他們知道保存成功了
+        alert('✨ 遊戲進度已成功保存！');
+    }
     console.log('遊戲已保存！');
 }
 
-function loadGame() {
-    const savedData = localStorage.getItem('idleGameSave');
-    if (savedData) {
-        const gameData = JSON.parse(savedData);
-        
-        // 載入數據時，記得處理數據不存在的狀況（用 || 設置預設值）
-        resource = gameData.resource || 0;
-        clickPower = gameData.clickPower || 1;
-        productionRate = gameData.productionRate || 0;
-        
-        console.log('遊戲進度已載入！');
-        updateDisplay();
-    }
-}
 
+// --- 新增：手動保存處理函數 ---
+
+function handleManualSave() {
+    // 呼叫 saveGame 並傳入 true，表示這是手動保存
+    saveGame(true);
+}
 
 // --- 遊戲主循環 (Game Loop) ---
 setInterval(() => {
@@ -64,3 +69,4 @@ window.addEventListener('beforeunload', () => {
 // --- 啟動時載入 ---
 loadGame(); 
 updateDisplay();
+
