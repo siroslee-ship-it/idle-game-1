@@ -59,4 +59,21 @@ header h1 {
     border: none;
     border-radius: 3px;
     cursor: pointer;
+
+}
+
+.save-button {
+    padding: 10px 20px;
+    font-size: 1.1em;
+    background-color: #f0ad4e; /* 醒目的橘色 */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 20px; /* 稍微和點擊按鈕區隔開 */
+    transition: background-color 0.2s;
+}
+
+.save-button:hover {
+    background-color: #eb9316;
 }
